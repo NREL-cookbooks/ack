@@ -5,6 +5,8 @@
 # Copyright 2010, NREL
 #
 
+include_recipe "yum::epel"
+
 package_name = "ack"
 binary_path = "/usr/bin/ack"
 
