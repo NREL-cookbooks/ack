@@ -5,7 +5,7 @@
 # Copyright 2010, NREL
 #
 
-include_recipe "yum::rpmforge"
+include_recipe "yum::repoforge"
 
 package_name = "ack"
 binary_path = "/usr/bin/ack"
