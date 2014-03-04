@@ -4,4 +4,4 @@ description      "Installs/Configures ack"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
 version          "0.1.1"
 
-depends "yum"
+depends "perl"

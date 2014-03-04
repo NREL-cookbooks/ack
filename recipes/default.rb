@@ -5,26 +5,20 @@
 # Copyright 2010, NREL
 #
 
+include_recipe "perl"
 
-case node[:platform]
-  when "ubuntu", "debian"
-    package_name = "ack-grep"
-    binary_path = "/usr/bin/ack-grep"
-  else
-    include_recipe "yum::repoforge"
-
-    package_name = "ack"
-    binary_path = "/usr/bin/ack"
-end
-
-package package_name do
-  action :install
-end
-
-# In Ubuntu the package gets installed as "ack-grep". To keep things consistent
-# across platforms, we want to symlink "ack" so that also works.
-if (File.basename(binary_path) != "ack")
-  link "/usr/bin/ack" do
-    to binary_path
+# Remove the package-based installation.
+package "ack" do
+  if(platform_family?('ubuntu'))
+    package_name "ack-grep"
   end
+
+  action :remove
+end
+
+# Install the single-file executable version.
+remote_file "/usr/bin/ack" do
+  source node[:ack][:download_url]
+  checksum node[:ack][:checksum]
+  mode 0755
 end
